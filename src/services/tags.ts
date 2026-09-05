@@ -78,18 +78,11 @@ function resolveTrustedWindowsShell(untrustedRoot: string): string | null {
       accessSync(path, constants.X_OK);
       const candidate = canonicalPath(path);
       if (!isPathInside(untrustedRoot, candidate)) return candidate;
-    } catch {
-      // Try the next trusted system-shell location.
-    }
+    } catch {}
   }
   return null;
 }
 
-/**
- * Resolve Git only from absolute PATH entries outside the repository being
- * inspected. In particular, never let Windows resolve a repository-local
- * git.exe/git.cmd/git.bat from the child process working directory.
- */
 function resolveTrustedGitCommand(directory: string): GitCommand | null {
   const untrustedRoot = findUntrustedProjectRoot(directory);
   const executableNames =
@@ -112,9 +105,7 @@ function resolveTrustedGitCommand(directory: string): GitCommand | null {
 
         const shell = resolveTrustedWindowsShell(untrustedRoot);
         if (shell) return { executable, shell };
-      } catch {
-        // Continue searching PATH. Missing Git uses the existing null fallbacks.
-      }
+      } catch {}
     }
   }
 

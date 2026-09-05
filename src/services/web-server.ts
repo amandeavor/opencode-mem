@@ -171,7 +171,6 @@ function serveFetch(opts: {
   // rebind after a crashed predecessor left orphaned sockets behind.
   server.listen({ port: opts.port, host: opts.hostname, reuseAddr: true, exclusive: false });
   server.unref();
-  // Keep the outer transport alive longer than the longest profile-cleanup deadline.
   server.timeout = NODE_HTTP_IDLE_TIMEOUT_MS;
   server.keepAliveTimeout = 10000;
   server.headersTimeout = 11000;
