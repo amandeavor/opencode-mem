@@ -1079,10 +1079,6 @@ function formatMemoriesForCompaction(memories: any[]): string {
 
   memories.forEach((m, i) => {
     const tags = Array.isArray(m.tags) ? m.tags : [];
-    // Auto-capture stores the same tags as a trailing "Tags: …" footer in the
-    // body (#131). Strip that footer only when it matches the structured tags
-    // so a later canonical line does not duplicate them. Unrelated user-authored
-    // "Tags:" lines (manual / API / import) stay in the body.
     const body =
       tags.length > 0 ? stripMatchingEmbeddedTagsFooter(m.memory ?? "", tags) : (m.memory ?? "");
 

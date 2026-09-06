@@ -248,8 +248,6 @@ async function callViaExternalAPI(
     applySafeExtraParams(requestBody, CONFIG.memoryExtraParams);
   }
 
-  // Cleanup relies on these fields for deterministic JSON output. Assign them after optional
-  // provider parameters so callers cannot replace cleanup semantics through extra params.
   Object.assign(requestBody, {
     model: CONFIG.memoryModel,
     messages: [
