@@ -148,7 +148,8 @@ export default function App() {
                       count: getDisplayedMemoryCount(
                         explorer.isSearching,
                         explorer.totalItems,
-                        explorer.statsTotal
+                        explorer.statsTotal,
+                        Boolean(explorer.selectedTag)
                       ),
                     })}
                   </span>
